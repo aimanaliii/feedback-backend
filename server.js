@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -26,19 +27,19 @@ const writeData = (data) => {
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 };
 
-// 1️⃣ GET all feedbacks
+// 1 GET all feedbacks
 app.get("/api/feedbacks", (req, res) => {
     const feedbacks = readData();
     res.json({ status: "success", feedbacks });
 });
 
-// 2️⃣ GET feedback count
+// 2 GET feedback count
 app.get("/api/feedbacks/count", (req, res) => {
     const feedbacks = readData();
     res.json({ status: "success", count: feedbacks.length });
 });
 
-// 3️⃣ POST new feedback
+// 3 POST new feedback
 app.post("/api/feedbacks", (req, res) => {
     const { name, message } = req.body;
 
@@ -83,3 +84,7 @@ app.delete("/api/feedbacks", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+  
